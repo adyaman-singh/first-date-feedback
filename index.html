@@ -264,6 +264,7 @@
           A completely unbiased investigation into whether I was charming,
           awkward, or accidentally potential Bollywood.
         </p>
+        <button type="button" id="testFill" style="margin-top:10px;background:#f5edef;border:0;border-radius:10px;padding:8px 14px;font:inherit;font-size:12px;color:#746d76;cursor:pointer">Fill test data</button>
       </header>
 
       <form
@@ -839,6 +840,17 @@
               .classList.toggle("hidden", radio.value !== "Yes");
           });
         });
+
+      document.getElementById("testFill").addEventListener("click", () => {
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+          const group = form.querySelectorAll(`input[name="${radio.name}"]`);
+          if (![...group].some(r => r.checked)) group[0].checked = true;
+        });
+        document.querySelectorAll("textarea").forEach(t => { if (!t.value) t.value = "test"; });
+        document.querySelector('input[name="dreamy_question"][value="Yes"]').checked = true;
+        document.getElementById("dreamyWorld").classList.remove("hidden");
+        showStep(steps.length - 1);
+      });
     </script>
   </body>
 </html>
