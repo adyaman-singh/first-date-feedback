@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First Date Experience™️</title>
+    <meta
+      name="description"
+      content="A completely unbiased investigation into the first date."
+    />
+    <style>
+      :root {
+        --bg: #fff8f4;
+        --card: #fff;
+        --ink: #27232a;
+        --muted: #746d76;
+        --accent: #e85d75;
+        --accent-dark: #c7445d;
+        --soft: #ffe3e8;
+        --line: #eadfe2;
+        --shadow: 0 18px 50px rgba(80, 40, 55, 0.1);
+        --radius: 24px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background:
+          radial-gradient(circle at 8% 5%, #ffe7ec 0, transparent 28%),
+          radial-gradient(circle at 92% 8%, #fff0cf 0, transparent 24%),
+          var(--bg);
+        line-height: 1.5;
+      }
+      .wrap {
+        width: min(700px, calc(100% - 28px));
+        margin: auto;
+        padding: 28px 0 60px;
+      }
+      header {
+        text-align: center;
+        padding: 12px 10px 25px;
+      }
+      .eyebrow {
+        display: inline-block;
+        background: var(--soft);
+        color: var(--accent-dark);
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      h1 {
+        font-size: clamp(38px, 10vw, 58px);
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+        margin: 14px 0 10px;
+      }
+      .subtitle {
+        max-width: 560px;
+        margin: auto;
+        color: var(--muted);
+        font-size: 15px;
+      }
+      .progress-wrap {
+        margin: 0 0 18px;
+      }
+      .progress-top {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 12px;
+        margin-bottom: 7px;
+      }
+      .progress {
+        height: 7px;
+        background: #f0e5e7;
+        border-radius: 99px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 100%;
+        width: 20%;
+        background: var(--accent);
+        border-radius: 99px;
+        transition: 0.3s;
+      }
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(234, 223, 226, 0.9);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: clamp(20px, 5vw, 32px);
+      }
+      .section-title {
+        margin: 0 0 5px;
+        font-size: 21px;
+      }
+      .section-note {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 0 0 22px;
+      }
+      .question {
+        display: block;
+        font-weight: 760;
+        margin: 22px 0 10px;
+      }
+      .hint {
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 12px;
+      }
+      .choices {
+        display: grid;
+        gap: 9px;
+      }
+      .choices.five {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      .choices.grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .choice input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .choice span {
+        display: flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10px 9px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 650;
+        transition: 0.18s;
+        user-select: none;
+      }
+      .choice span:hover {
+        transform: translateY(-1px);
+        border-color: #e6a0ad;
+      }
+      .choice input:checked + span {
+        background: var(--soft);
+        border-color: var(--accent);
+        color: var(--accent-dark);
+        box-shadow: 0 5px 16px rgba(232, 93, 117, 0.12);
+      }
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        border-radius: 15px;
+        padding: 14px 15px;
+        font: inherit;
+        outline: none;
+        resize: vertical;
+        min-height: 115px;
+      }
+      textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(232, 93, 117, 0.1);
+      }
+      .nav {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      button {
+        border: 0;
+        border-radius: 15px;
+        padding: 15px 20px;
+        font: inherit;
+        font-weight: 800;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.18s;
+      }
+      .next {
+        flex: 1;
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(232, 93, 117, 0.2);
+      }
+      .next:hover {
+        background: var(--accent-dark);
+        transform: translateY(-1px);
+      }
+      .back {
+        background: #f5edef;
+        color: var(--ink);
+      }
+      .back:hover {
+        background: #eee2e5;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .success {
+        text-align: center;
+        padding: 35px 20px;
+      }
+      .success .emoji {
+        font-size: 55px;
+      }
+      .success h2 {
+        font-size: 28px;
+        margin: 8px 0;
+      }
+      .success p {
+        color: var(--muted);
+      }
+      .fineprint {
+        text-align: center;
+        color: var(--muted);
+        font-size: 11px;
+        margin: 12px 0 0;
+      }
+      @media (max-width: 600px) {
+        .choices.five,
+        .choices.grid {
+          grid-template-columns: 1fr;
+        }
+        .choice span {
+          justify-content: flex-start;
+          padding-left: 15px;
+        }
+        .nav {
+          position: sticky;
+          bottom: 12px;
+        }
+        .nav button {
+          box-shadow: 0 8px 24px rgba(50, 30, 35, 0.12);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <div class="eyebrow">Peer-reviewed research™️</div>
+        <h1>How was the first date? 🌝</h1>
+        <p class="subtitle">
+          A completely unbiased investigation into whether I was charming,
+          awkward, or accidentally potential Bollywood.
+        </p>
+      </header>
+
+      <form
+        id="dateForm"
+        action="https://formspree.io/f/mppwoeve"
+        method="POST"
+      >
+        <div class="progress-wrap">
+          <div class="progress-top">
+            <span id="stepLabel">The headline</span
+            ><span id="stepCount">1 / 5</span>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <section class="card step" data-title="The headline">
+          <h2 class="section-title">🎬 The headline</h2>
+          <p class="section-note">
+            No diplomatic answers. I can take it. Probably.
+          </p>
+          <label class="question"
+            >Overall, how was the first-date experience?</label
+          >
+          <div class="choices five">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="overall_experience"
+                value="Bad"
+              /><span>Bad 🫠</span></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="overall_experience"
+                value="Okay"
+              /><span>Okay 🙂</span></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="overall_experience"
+                value="Good"
+              /><span>Good 😊</span></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="overall_experience"
+                value="Great"
+              /><span>Great 🥰</span></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="overall_experience"
+                value="Bollywood-y"
+              /><span>Bollywood-y 🎥</span></label
+            >
+          </div>
+          <div class="nav">
+            <button type="button" class="next">Continue →</button>
+          </div>
+        </section>
+
+        <section class="card step hidden" data-title="The performance review">
+          <h2 class="section-title">📝 The performance review</h2>
+          <p class="section-note">
+            Please rate the crimes, charms and questionable decisions.
+          </p>
+
+          <label class="question">Did I make you feel comfortable?</label>
+          <div class="choices grid">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="comfortable"
+                value="Yes"
+              /><span>Yes, absolutely</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="comfortable" value="Mostly" /><span
+                >Mostly</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="comfortable" value="Not really" /><span
+                >Not really</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="comfortable" value="No" /><span
+                >Nope 😬</span
+              ></label
+            >
+          </div>
+
+          <label class="question">Was I decently dressed?</label>
+          <div class="choices grid">
+            <label class="choice"
+              ><input required type="radio" name="dressed" value="Yes" /><span
+                >Yes 👌</span
+              ></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="dressed"
+                value="Could be better"
+              /><span>Could be better</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="dressed" value="No" /><span
+                >Brother, no.</span
+              ></label
+            >
+          </div>
+
+          <label class="question">Was I funny?</label>
+          <div class="choices grid">
+            <label class="choice"
+              ><input required type="radio" name="funny" value="Very" /><span
+                >Very 😭</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="funny" value="Decently" /><span
+                >Decently</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="funny" value="Sometimes" /><span
+                >Sometimes</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="funny" value="No" /><span
+                >What was that?</span
+              ></label
+            >
+          </div>
+
+          <label class="question">Did I make you laugh?</label>
+          <div class="choices grid">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="made_you_laugh"
+                value="A lot"
+              /><span>A lot 😂</span></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="made_you_laugh"
+                value="A few times"
+              /><span>A few times</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="made_you_laugh" value="Barely" /><span
+                >Barely</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="made_you_laugh" value="No" /><span
+                >Not once 💀</span
+              ></label
+            >
+          </div>
+
+          <label class="question">Was I a good listener?</label>
+          <div class="choices grid">
+            <label class="choice"
+              ><input required type="radio" name="listener" value="Yes" /><span
+                >Yes 👂</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="listener" value="Mostly" /><span
+                >Mostly</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="listener" value="I rambled" /><span
+                >You rambled 😭</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="listener" value="No" /><span
+                >Not really</span
+              ></label
+            >
+          </div>
+
+          <label class="question">Did I act stupid?</label>
+          <div class="choices grid">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="acted_stupid"
+                value="No"
+              /><span>No, smooth</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="acted_stupid" value="A little" /><span
+                >A little 🤏</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="acted_stupid" value="Yes" /><span
+                >Yes 😂</span
+              ></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="acted_stupid"
+                value="Spectacularly"
+              /><span>Spectacularly</span></label
+            >
+          </div>
+
+          <label class="question"
+            >Did I shake your hand?
+            <span class="hint">(i.e. did I panic?)</span></label
+          >
+          <div class="choices grid">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="handshake_panic"
+                value="Yes"
+              /><span>Yes 🤝</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="handshake_panic" value="No" /><span
+                >No</span
+              ></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="handshake_panic"
+                value="I don't remember"
+              /><span>I don't remember</span></label
+            >
+          </div>
+
+          <label class="question"
+            >Was I stupid in terms of not understanding the vibe?</label
+          >
+          <div class="choices grid">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="understood_vibe"
+                value="No"
+              /><span>No, you got it</span></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="understood_vibe"
+                value="A little"
+              /><span>A little 😭</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="understood_vibe" value="Yes" /><span
+                >Yes</span
+              ></label
+            >
+            <label class="choice"
+              ><input
+                type="radio"
+                name="understood_vibe"
+                value="Painfully"
+              /><span>Painfully</span></label
+            >
+          </div>
+          <div class="nav">
+            <button type="button" class="back">← Back</button
+            ><button type="button" class="next">Continue →</button>
+          </div>
+        </section>
+
+        <section class="card step hidden" data-title="The things I missed">
+          <h2 class="section-title">☂️ The things I apparently missed</h2>
+          <p class="section-note">
+            Was there anything I should've done but didn't?
+          </p>
+
+          <label class="question"
+            >Were there things I didn't do that I should have?</label
+          >
+          <textarea
+            name="things_should_have_done"
+            placeholder="Holding an umbrella for you? Buying you a flower? Not walking into a pole? Anything goes."
+          ></textarea>
+
+          <label class="question"
+            >Did you think there were certain things I could have done, which I
+            didn't?</label
+          >
+          <textarea
+            name="things_could_have_done"
+            placeholder="Be brutally honest. This is a safe space. Mostly."
+          ></textarea>
+
+          <div class="nav">
+            <button type="button" class="back">← Back</button
+            ><button type="button" class="next">Continue →</button>
+          </div>
+        </section>
+
+        <section class="card step hidden" data-title="The memorable bits">
+          <h2 class="section-title">💭 The bits I'll secretly overthink</h2>
+          <p class="section-note">
+            Okay, now we're getting sentimental. Don't panic.
+          </p>
+
+          <label class="question"
+            >What do you think was the best part of the date?</label
+          >
+          <textarea
+            required
+            name="best_part"
+            placeholder="The moment, conversation, joke, place, random incident... whatever stuck with you."
+          ></textarea>
+
+          <label class="question"
+            >What would be something you would remember me by?</label
+          >
+          <textarea
+            required
+            name="remember_me_by"
+            placeholder="A particular thing I said, did, wore, laughed about..."
+          ></textarea>
+
+          <div class="nav">
+            <button type="button" class="back">← Back</button
+            ><button type="button" class="next">Continue →</button>
+          </div>
+        </section>
+
+        <section class="card step hidden" data-title="In My Dreamy Land">
+          <h2 class="section-title">In My Dreamy Land</h2>
+          <p class="section-note">
+            A completely optional confession booth. No judgment. (Mild
+            judgment.)
+          </p>
+
+          <label class="question"
+            >Are you the potential surrogate mother of your stepfather's
+            children?</label
+          >
+          <div class="choices grid">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="dreamy_question"
+                value="Yes"
+              /><span>Yes 🍳</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="dreamy_question" value="No" /><span
+                >No 😩</span
+              ></label
+            >
+          </div>
+
+          <div
+            id="dreamyWorld"
+            class="hidden"
+            style="
+              margin-top: 24px;
+              padding-top: 20px;
+              border-top: 1px solid var(--line);
+            "
+          >
+            <label class="question"
+              >If I had extended my stay, would you have felt uncomfortable or
+              weirded out by that?</label
+            >
+            <div class="choices grid">
+              <label class="choice"
+                ><input
+                  type="radio"
+                  name="extended_stay"
+                  value="Yes, a bit"
+                /><span>Yes, a bit</span></label
+              >
+              <label class="choice"
+                ><input
+                  type="radio"
+                  name="extended_stay"
+                  value="Not at all"
+                /><span>Not at all</span></label
+              >
+              <label class="choice"
+                ><input
+                  type="radio"
+                  name="extended_stay"
+                  value="Would've been nice"
+                /><span>Would have been nice</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="extended_stay" value="Unsure" /><span
+                  >Not sure</span
+                ></label
+              >
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="back">← Back</button
+            ><button type="button" class="next">Continue →</button>
+          </div>
+        </section>
+
+        <section class="card step hidden" data-title="Final words">
+          <h2 class="section-title">💌 Final words</h2>
+          <p class="section-note">
+            The part where you get to ruin my confidence or inflate my ego.
+          </p>
+
+          <label class="question">Recommendations / suggestions</label>
+          <textarea
+            name="recommendations"
+            placeholder="What should I do differently next time?"
+          ></textarea>
+
+          <label class="question">Anything else?</label>
+          <textarea
+            name="anything_else"
+            placeholder="Compliments, complaints, allegations, poetry..."
+          ></textarea>
+
+          <label class="question"
+            >And, for the record... would you go on a second date? 👀</label
+          >
+          <div class="choices grid">
+            <label class="choice"
+              ><input
+                required
+                type="radio"
+                name="second_date"
+                value="Absolutely"
+              /><span>Absolutely 👀</span></label
+            >
+            <label class="choice"
+              ><input type="radio" name="second_date" value="Yes" /><span
+                >Yes 😊</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="second_date" value="Maybe" /><span
+                >Maybe</span
+              ></label
+            >
+            <label class="choice"
+              ><input type="radio" name="second_date" value="Let's see" /><span
+                >Let's see 😌</span
+              ></label
+            >
+          </div>
+
+          <div class="nav">
+            <button type="button" class="back">← Back</button
+            ><button id="submitBtn" class="next" type="submit">
+              Submit the official verdict 🎬
+            </button>
+          </div>
+          <p class="fineprint">
+            Anonymous-ish. Brutally honest. Legally non-binding.
+          </p>
+        </section>
+      </form>
+
+      <section id="success" class="card success hidden">
+        <div class="emoji">🎬❤️</div>
+        <h2>Verdict submitted.</h2>
+        <p>
+          Your feedback has entered the cinematic universe. Thank you for your
+          honesty.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById("dateForm");
+      const steps = [...document.querySelectorAll(".step")];
+      const bar = document.getElementById("progressBar");
+      const label = document.getElementById("stepLabel");
+      const count = document.getElementById("stepCount");
+      const success = document.getElementById("success");
+      const submit = document.getElementById("submitBtn");
+      let current = 0;
+
+      function showStep(i) {
+        current = i;
+        steps.forEach((s, n) => s.classList.toggle("hidden", n !== i));
+        label.textContent = steps[i].dataset.title;
+        count.textContent = `${i + 1} / ${steps.length}`;
+        bar.style.width = `${((i + 1) / steps.length) * 100}%`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      function validateStep() {
+        const fields = steps[current].querySelectorAll(
+          "input[required], textarea[required]",
+        );
+        for (const field of fields) {
+          if (field.type === "radio") {
+            const group = steps[current].querySelectorAll(
+              `input[name="${field.name}"]`,
+            );
+            if (![...group].some((x) => x.checked)) {
+              field.reportValidity();
+              return false;
+            }
+          } else if (!field.value.trim()) {
+            field.reportValidity();
+            return false;
+          }
+        }
+        return true;
+      }
+      document.querySelectorAll(".next").forEach((btn) => {
+        if (btn.id === "submitBtn") return;
+        btn.addEventListener("click", () => {
+          if (validateStep()) showStep(Math.min(current + 1, steps.length - 1));
+        });
+      });
+      document.querySelectorAll(".back").forEach((btn) => {
+        btn.addEventListener("click", () => showStep(Math.max(current - 1, 0)));
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!validateStep()) return;
+        if (form.action.includes("https://formspree.io/f/mppwoeve")) {
+          alert(
+            "One tiny setup step remains: replace https://formspree.io/f/mppwoeve in index.html with your Formspree endpoint.",
+          );
+          return;
+        }
+        submit.disabled = true;
+        submit.textContent = "Sending the verdict…";
+        try {
+          const r = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" },
+          });
+          if (!r.ok) throw new Error();
+          form.classList.add("hidden");
+          document.querySelector(".progress-wrap").classList.add("hidden");
+          success.classList.remove("hidden");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } catch (err) {
+          submit.disabled = false;
+          submit.textContent = "Submit the official verdict 🎬";
+          alert("The verdict got stuck somewhere. Please try again.");
+        }
+      });
+      showStep(0);
+
+      document
+        .querySelectorAll('input[name="dreamy_question"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", () => {
+            document
+              .getElementById("dreamyWorld")
+              .classList.toggle("hidden", radio.value !== "Yes");
+          });
+        });
+    </script>
+  </body>
+</html>
