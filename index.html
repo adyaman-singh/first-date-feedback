@@ -811,12 +811,6 @@
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (!validateStep()) return;
-        if (form.action.includes("https://formspree.io/f/mppwoeve")) {
-          alert(
-            "One tiny setup step remains: replace https://formspree.io/f/mppwoeve in index.html with your Formspree endpoint.",
-          );
-          return;
-        }
         submit.disabled = true;
         submit.textContent = "Sending the verdict…";
         try {
