@@ -281,6 +281,7 @@
         id="dateForm"
         action="https://formspree.io/f/mppwoeve"
         method="POST"
+        novalidate
       >
         <div class="progress-wrap">
           <div class="progress-top">
@@ -302,7 +303,7 @@
           <input type="text" name="name" placeholder="Mother Teresa" />
 
           <label class="question">Date of Birth</label>
-          <input type="date" name="dob" />
+          <input type="text" name="dob" placeholder="DD/MM/YYYY" />
 
           <label class="question">WhatsApp Number</label>
           <input type="tel" name="whatsapp" placeholder="+91-XXXXXXXXXX" />
@@ -311,7 +312,7 @@
           <input type="tel" name="nepali_number" placeholder="98XXXXXXXX" />
 
           <label class="question">Email</label>
-          <input type="email" name="email" placeholder="youremail@example.com" />
+          <input type="text" name="email" placeholder="youremail@example.com" />
 
           <label class="question">Hometown / Where you're from</label>
           <input type="text" name="hometown" placeholder="City, Country" />
@@ -903,20 +904,6 @@
           });
         });
 
-      document.getElementById("testFill").addEventListener("click", () => {
-        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-          const group = form.querySelectorAll(`input[name="${radio.name}"]`);
-          if (![...group].some((r) => r.checked)) group[0].checked = true;
-        });
-        document.querySelectorAll("textarea").forEach((t) => {
-          if (!t.value) t.value = "test";
-        });
-        document.querySelector(
-          'input[name="dreamy_question"][value="Yes"]',
-        ).checked = true;
-        document.getElementById("dreamyWorld").classList.remove("hidden");
-        showStep(steps.length - 1);
-      });
     </script>
   </body>
 </html>
