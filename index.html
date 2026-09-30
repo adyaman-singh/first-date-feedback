@@ -164,7 +164,11 @@
         color: var(--accent-dark);
         box-shadow: 0 5px 16px rgba(232, 93, 117, 0.12);
       }
-      textarea {
+      textarea,
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"] {
         width: 100%;
         border: 1px solid var(--line);
         background: #fff;
@@ -173,10 +177,17 @@
         padding: 14px 15px;
         font: inherit;
         outline: none;
+        margin-bottom: 8px;
+      }
+      textarea {
         resize: vertical;
         min-height: 115px;
       }
-      textarea:focus {
+      textarea:focus,
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="tel"]:focus,
+      input[type="date"]:focus {
         border-color: var(--accent);
         box-shadow: 0 0 0 4px rgba(232, 93, 117, 0.1);
       }
@@ -235,53 +246,6 @@
         font-size: 11px;
         margin: 12px 0 0;
       }
-      .blocker {
-        text-align: center;
-        padding: 48px 24px;
-      }
-      .blocker .lock-icon {
-        font-size: 62px;
-        margin-bottom: 8px;
-      }
-      .blocker h2 {
-        font-size: 26px;
-        margin: 0 0 6px;
-        letter-spacing: -0.03em;
-      }
-      .blocker .blocker-body {
-        color: var(--muted);
-        font-size: 15px;
-        max-width: 480px;
-        margin: 0 auto 24px;
-        line-height: 1.65;
-      }
-      .blocker .blocker-body em {
-        color: var(--ink);
-        font-style: italic;
-      }
-      .blocker .signature {
-        color: var(--muted);
-        font-size: 13px;
-        font-style: italic;
-        margin-top: 18px;
-        padding-top: 14px;
-        border-top: 1px solid var(--line);
-      }
-      .unlock-link {
-        position: fixed;
-        bottom: 22px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 12px;
-        color: #ccc0c3;
-        text-decoration: none;
-        cursor: pointer;
-        user-select: none;
-        letter-spacing: 0.03em;
-      }
-      .unlock-link:hover {
-        color: var(--muted);
-      }
       @media (max-width: 600px) {
         .choices.five,
         .choices.grid {
@@ -304,20 +268,6 @@
   </head>
   <body>
     <main class="wrap">
-      <section id="blockerScreen" class="card blocker">
-        <div class="lock-icon">🔐</div>
-        <h2>Form Unavailable</h2>
-        <div class="blocker-body">
-          <p>This form is no longer available.</p>
-          <p>
-            Somewhere along the way, someone suggested filling it out was too
-            much effort. In the spirit of making things easier-it's gone now.
-          </p>
-          <p class="signature">au revoir</p>
-        </div>
-        <a class="unlock-link" id="unlockBtn">i take it back</a>
-      </section>
-
       <header>
         <div class="eyebrow">Peer-reviewed research™️</div>
         <h1>How was the first date? 🌝</h1>
@@ -334,15 +284,59 @@
       >
         <div class="progress-wrap">
           <div class="progress-top">
-            <span id="stepLabel">The headline</span
-            ><span id="stepCount">1 / 5</span>
+            <span id="stepLabel">About you</span
+            ><span id="stepCount">1 / 7</span>
           </div>
           <div class="progress">
             <div class="progress-bar" id="progressBar"></div>
           </div>
         </div>
 
-        <section class="card step" data-title="The headline">
+        <section class="card step" data-title="About you">
+          <h2 class="section-title">📋 About you</h2>
+          <p class="section-note">
+            Just so I can actually remember who gave this feedback. Optional but appreciated.
+          </p>
+
+          <label class="question">Name</label>
+          <input type="text" name="name" placeholder="Mother Teresa" />
+
+          <label class="question">Date of Birth</label>
+          <input type="date" name="dob" />
+
+          <label class="question">WhatsApp Number</label>
+          <input type="tel" name="whatsapp" placeholder="+91-XXXXXXXXXX" />
+
+          <label class="question">Local Nepali Number</label>
+          <input type="tel" name="nepali_number" placeholder="98XXXXXXXX" />
+
+          <label class="question">Email</label>
+          <input type="email" name="email" placeholder="youremail@example.com" />
+
+          <label class="question">Hometown / Where you're from</label>
+          <input type="text" name="hometown" placeholder="City, Country" />
+
+          <label class="question">Favourite book</label>
+          <input type="text" name="favorite_book" placeholder="The book you'd recommend to anyone" />
+
+          <label class="question">Favourite movie</label>
+          <input type="text" name="favorite_movie" placeholder="Your all-time favorite" />
+
+          <label class="question">Comfort movie / show</label>
+          <input type="text" name="comfort_movie" placeholder="What you watch when you need comfort" />
+
+          <label class="question">Song you never skip</label>
+          <input type="text" name="never_skip_song" placeholder="That one song that always hits" />
+
+          <label class="question">A place you desperately want to visit</label>
+          <input type="text" name="dream_place" placeholder="Where dreams take you" />
+
+          <div class="nav">
+            <button type="button" class="next">Continue →</button>
+          </div>
+        </section>
+
+        <section class="card step hidden" data-title="The headline">
           <h2 class="section-title">🎬 The headline</h2>
           <p class="section-note">
             No diplomatic answers. I can take it. Probably.
@@ -816,34 +810,14 @@
         <div class="emoji">🎬</div>
         <h2>Verdict submitted.</h2>
         <p>Your feedback has been submitted. Thank you for your honesty.</p>
+        <p style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted);">
+          In case my insta is deactivated and you would want to connect over WhatsApp:<br>
+          <span style="color: var(--ink); font-weight: 650;">+91-7042421999</span>
+        </p>
       </section>
     </main>
 
     <script>
-      const blocker = document.getElementById("blockerScreen");
-      const formHeader = document.querySelector("header");
-      const progressWrapEl = document.querySelector(".progress-wrap");
-
-      function showBlocker() {
-        blocker.classList.remove("hidden");
-        formHeader.classList.add("hidden");
-        document.getElementById("dateForm").classList.add("hidden");
-        if (progressWrapEl) progressWrapEl.classList.add("hidden");
-      }
-
-      function hideBlocker() {
-        blocker.classList.add("hidden");
-        formHeader.classList.remove("hidden");
-        document.getElementById("dateForm").classList.remove("hidden");
-        if (progressWrapEl) progressWrapEl.classList.remove("hidden");
-      }
-
-      showBlocker();
-
-      document
-        .getElementById("unlockBtn")
-        .addEventListener("click", hideBlocker);
-
       const form = document.getElementById("dateForm");
       const steps = [...document.querySelectorAll(".step")];
       const bar = document.getElementById("progressBar");
